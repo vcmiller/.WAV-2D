@@ -5,7 +5,7 @@ using UnityEngine;
 public class SampleCharacterController2D : PlayerController<CharacterProxy> {
 	
 	public void Axis_Horizontal(float value) {
-        Vector3 right = viewTarget.transform.right;
+        Vector3 right = transform.right;
         right.y = 0;
         right = right.normalized;
 
