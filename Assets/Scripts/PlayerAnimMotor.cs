@@ -25,12 +25,12 @@ public class PlayerAnimMotor : BasicMotor<CharacterProxy> {
             Play(State.Run);
         }
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetButton("Fire1")) {
             attack.Set();
 
-            if (control.movement.y > 0) {
+            if (control.movement.y > 0.5f) {
                 attackState = State.SawUp;
-            } else if (control.movement.y < 0 && !motor.grounded) {
+            } else if (control.movement.y < -0.5f && !motor.grounded) {
                 attackState = State.SawDown;
             } else {
                 attackState = State.SawSide;
@@ -44,7 +44,7 @@ public class PlayerAnimMotor : BasicMotor<CharacterProxy> {
         sprite = GetComponent<SpriteRenderer>();
         motor = GetComponent<CharacterMotor2D>();
 
-        attack = new ExpirationTimer(0.25f);
+        attack = new ExpirationTimer(0.12f);
     }
 
     public enum State {
