@@ -25,7 +25,7 @@ public class PlayerAnimMotor : BasicMotor<CharacterProxy> {
             Play(State.Run);
         }
 
-        if (Input.GetButton("Fire1")) {
+        if (Input.GetButtonDown("Fire1")) {
             attack.Set();
 
             if (control.movement.y > 0.5f) {

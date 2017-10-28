@@ -24,7 +24,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
     public float queryExtraDistance = 0.1f;
 
     [Tooltip("Layers that block the character.")]
-    public LayerMask[] blockingLayers = new LayerMask[1];
+    public LayerMask blockingLayers;
 
     [Header("Movement: Walking")]
     [Tooltip("The max walk speed of the character.")]
@@ -60,14 +60,11 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         bool collider = box.enabled;
         bool startIn = Physics2D.queriesStartInColliders;
         bool triggers = Physics2D.queriesHitTriggers;
-        box.enabled = false;
+        //box.enabled = false;
         Physics2D.queriesHitTriggers = false;
         Physics2D.queriesStartInColliders = false;
 
-        int queryMask = 0;
-        foreach (LayerMask lm in blockingLayers) {
-            queryMask |= lm.value;
-        }
+        int queryMask = blockingLayers;
 
         Vector2 move = control.movement;
         move.y = 0;
@@ -180,7 +177,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
 
         transform.Translate(vert, Space.World);
 
-        box.enabled = collider;
+        //box.enabled = collider;
         Physics2D.queriesHitTriggers = triggers;
         Physics2D.queriesStartInColliders = startIn;
 

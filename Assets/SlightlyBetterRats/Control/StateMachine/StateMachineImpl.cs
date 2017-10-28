@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ControlProxy))]
-public class StateMachineImpl<T> : MonoBehaviour where T : ControlProxy {
+public class StateMachineImpl<T> : StateMachineImplBase where T : ControlProxy {
     public T control { get; private set; }
 
 	protected virtual void Awake() {

@@ -38,7 +38,10 @@ public class StateMachineRunner {
                 Debug.LogError("Error: Implementation class " + definition.name + "_Impl must be a subclass of MonoBehaviour.");
                 definition = null;
             } else {
-                impl = (MonoBehaviour)controlled.AddComponent(implType);
+                impl = controlled.GetComponent<StateMachineImplBase>();
+                if (!impl) {
+                    impl = (MonoBehaviour) controlled.AddComponent(implType);
+                }
 
                 binding = new StateMachineBinding(definition);
                 binding.bindToObject(impl);
