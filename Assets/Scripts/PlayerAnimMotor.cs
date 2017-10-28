@@ -44,7 +44,7 @@ public class PlayerAnimMotor : BasicMotor<CharacterProxy> {
         sprite = GetComponent<SpriteRenderer>();
         motor = GetComponent<CharacterMotor2D>();
 
-        attack = new ExpirationTimer(0.3f);
+        attack = new ExpirationTimer(0.25f);
     }
 
     public enum State {
