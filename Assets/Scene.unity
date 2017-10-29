@@ -151,6 +151,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 114724736742782254, guid: 9353b1b0f7770e943a03f90e1c09d344,
+        type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1203895787}
     - target: {fileID: 114207020393404338, guid: 9353b1b0f7770e943a03f90e1c09d344,
         type: 2}
       propertyPath: player

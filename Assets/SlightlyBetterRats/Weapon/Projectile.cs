@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour {
         fired = true;
     }
 
-	protected virtual void OnHitObject(Collider col, Vector3 position, Vector3 normal) {
+	protected virtual void OnHitObject(Collider2D col, Vector3 position, Vector3 normal) {
         if (fired || hitsIfNotFired) {
             if (hitsTriggers || !col.isTrigger) {
                 Health d = col.GetComponent<Health>();

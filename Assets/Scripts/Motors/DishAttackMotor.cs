@@ -10,6 +10,9 @@ public class DishAttackMotor : BasicMotor<CharacterAttackProxy> {
     private ExpirationTimer attackTimer;
     private CooldownTimer attackCooldownTimer;
 
+    public GameObject projPrefab;
+    public Transform target;
+
     protected override void Awake() {
         base.Awake();
 
@@ -25,5 +28,15 @@ public class DishAttackMotor : BasicMotor<CharacterAttackProxy> {
         control.attackInProgress = !attackTimer.expired;
     }
 
+    public void Fire() {
+        Vector2 fwd = Vector2.right;
 
+        if (GetComponent<SpriteRenderer>().flipX) {
+            fwd = Vector2.left;
+        }
+
+        var proj = Instantiate(projPrefab).GetComponent<WavProjectile>();
+        proj.transform.position = transform.GetChild(0).position;
+        proj.FireAt(fwd, target);
+    }
 }
