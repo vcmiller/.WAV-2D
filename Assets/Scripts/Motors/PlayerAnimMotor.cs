@@ -2,39 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimMotor : BasicMotor<CharacterProxy> {
+public class PlayerAnimMotor : BasicMotor<WavCharacterProxy> {
     public Animator anim { get; private set; }
     public SpriteRenderer sprite { get; private set; }
     public CharacterMotor2D motor { get; private set; }
-
-    private State attackState;
-    private ExpirationTimer attack;
+    public PlayerAttackMotor attackMotor { get; private set; }
 
     public override void TakeInput() {
-        if (control.movement.x != 0 && attack.expired) {
+        if (control.movement.x != 0 && !attackMotor.attacking) {
             sprite.flipX = control.movement.x < 0;
         }
 
-        if (!attack.expired) {
-            Play(attackState);
+        if (attackMotor.attacking) {
+            if (attackMotor.attackDir == Vector2.up) {
+                Play(State.SawUp);
+            } else if (attackMotor.attackDir == Vector2.down) {
+                Play(State.SawDown);
+            } else {
+                Play(State.SawSide);
+            }
         } else if (!motor.grounded) {
             Play(State.Jump);
         } else if (control.movement.x == 0) {
             Play(State.Idle);
         } else {
             Play(State.Run);
-        }
-
-        if (Input.GetButtonDown("Fire1")) {
-            attack.Set();
-
-            if (control.movement.y > 0.5f) {
-                attackState = State.SawUp;
-            } else if (control.movement.y < -0.5f && !motor.grounded) {
-                attackState = State.SawDown;
-            } else {
-                attackState = State.SawSide;
-            }
         }
     }
 
@@ -43,8 +35,8 @@ public class PlayerAnimMotor : BasicMotor<CharacterProxy> {
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         motor = GetComponent<CharacterMotor2D>();
-
-        attack = new ExpirationTimer(0.12f);
+        
+        attackMotor = GetComponent<PlayerAttackMotor>();
     }
 
     public enum State {
