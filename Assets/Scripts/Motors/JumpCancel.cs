@@ -22,7 +22,7 @@ public class JumpCancel : BasicMotor<WavCharacterProxy> {
             jumping = true;
         }
 
-        if (control.cancelJump) {
+        if (control.cancelJump && jumping) {
             mainMotor.velocity.y = 0;
         }
     }
