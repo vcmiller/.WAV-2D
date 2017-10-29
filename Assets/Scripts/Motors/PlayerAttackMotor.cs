@@ -12,18 +12,10 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
     public Vector2 attackDir { get; private set; }
     public Weapon curWeapon { get; private set; }
 
-    public float attackCooldown;
-    public float attackDuration;
-
     public CooldownTimer attackCooldownTimer { get; private set; }
     public ExpirationTimer attackExpirationTimer { get; private set; }
     public CharacterMotor2D mainMotor { get; private set; }
     public SpriteRenderer sprite { get; private set; }
-
-    public BoxCollider2D triggerUp;
-    public BoxCollider2D triggerDown;
-    public BoxCollider2D triggerRight;
-    public BoxCollider2D triggerLeft;
 
     public float knockbackSide = 15;
     public float knockbackDown = 3;
@@ -33,62 +25,69 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
 
     public LayerMask hitMask;
 
-    public AudioClip swordSwing;
-    public AudioClip swordHit;
-
     public GameObject slashPrefab;
 
     protected override void Awake() {
         base.Awake();
 
-        attackCooldownTimer = new CooldownTimer(attackCooldown);
-        attackExpirationTimer = new ExpirationTimer(attackDuration);
+        attackCooldownTimer = new CooldownTimer(1);
+        attackExpirationTimer = new ExpirationTimer(1);
         mainMotor = GetComponent<CharacterMotor2D>();
         sprite = GetComponent<SpriteRenderer>();
     }
 
     public override void TakeInput() {
         if (control.attack > 0 && control.attack <= weapons.Length && attackCooldownTimer.Use()) {
+            curWeapon = weapons[control.attack - 1];
+
+            attackCooldownTimer.cooldown = curWeapon.attackCooldown;
+            attackExpirationTimer.expiration = curWeapon.attackDur;
+
             attackExpirationTimer.Set();
 
-            BoxCollider2D hitbox = null;
-            curWeapon = weapons[control.attack - 1];
+            var b = mainMotor.box;
+
+            Vector2 pos, size;
             
             if (control.movement.y > 0.5f && curWeapon.canAttackUp) {
                 attackDir = Vector2.up;
-                hitbox = triggerUp;
+                size = new Vector2(b.size.x, curWeapon.range);
+                pos = new Vector2(0, (b.size.y + size.y) / 2);
             } else if (control.movement.y < -0.5f && !mainMotor.grounded && curWeapon.canAttackDown) {
                 attackDir = Vector2.down;
-                hitbox = triggerDown;
+                size = new Vector2(b.size.x, curWeapon.range);
+                pos = new Vector2(0, (b.size.y + size.y) / -2);
             } else {
+                size = new Vector2(b.size.x + curWeapon.range, b.size.y);
+
                 if (sprite.flipX) {
-                    hitbox = triggerLeft;
                     attackDir = Vector2.left;
+                    pos = new Vector2(curWeapon.range / -2, 0);
                 } else {
-                    hitbox = triggerRight;
                     attackDir = Vector2.right;
+                    pos = new Vector2(curWeapon.range / 2, 0);
                 }
             }
 
-            bool b = Physics2D.queriesHitTriggers;
+            bool t = Physics2D.queriesHitTriggers;
             Physics2D.queriesHitTriggers = true;
-            var hits = Physics2D.OverlapBoxAll(hitbox.transform.position, hitbox.size, 0, hitMask);
-            Physics2D.queriesHitTriggers = b;
+            var hits = Physics2D.OverlapBoxAll((Vector2)transform.position + pos, size, 0, hitMask);
+            Physics2D.queriesHitTriggers = t;
 
             bool anyHit = false;
 
             foreach (var hit in hits) {
                 var h = hit.GetComponent<Health>();
                 if (h) {
-                    h.ApplyDamage(new Damage(1, hit.transform.position, attackDir));
+                    h.ApplyDamage(new Damage(curWeapon.damage, hit.transform.position, attackDir * curWeapon.force));
                     anyHit = true;
                 }
             }
 
-            Util.PlayClipAtPoint(swordSwing, transform.position, 1, 0.5f, false, null);
+            Util.PlayClipAtPoint(curWeapon.swingSound, transform.position, 1, 0.5f, false, null);
 
             if (anyHit) {
-                Util.PlayClipAtPoint(swordHit, transform.position, 1, 0.5f, false, null);
+                Util.PlayClipAtPoint(curWeapon.hitSound, transform.position, 1, 0.5f, false, null);
 
                 var slash = Instantiate(slashPrefab);
                 slash.transform.position = transform.position + (Vector3)attackDir;

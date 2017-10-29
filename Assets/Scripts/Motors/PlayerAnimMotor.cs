@@ -48,6 +48,6 @@ public class PlayerAnimMotor : BasicMotor<WavCharacterProxy> {
     }
 
     private void PlayAttack(State state) {
-        anim.Play(attackMotor.curWeapon.stateName + state.ToString());
+        anim.Play(attackMotor.curWeapon.name + state.ToString());
     }
 }

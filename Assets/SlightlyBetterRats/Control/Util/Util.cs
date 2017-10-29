@@ -4,6 +4,10 @@ using System.Collections;
 public static class Util {
 
     public static AudioSource PlayClipAtPoint(AudioClip clip, Vector3 point, float volume = 1, float spatial = 1, bool loop = false, Transform attach = null) {
+        if (clip == null) {
+            return null;
+        }
+
         GameObject obj = new GameObject();
         obj.name = "One shot audio (SBR)";
         obj.transform.parent = attach;

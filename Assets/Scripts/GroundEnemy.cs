@@ -27,7 +27,9 @@ public class GroundEnemy : Enemy {
     }
 
     protected override void DamageNotify(Damage dmg) {
-        Launch((dmg.dir + Vector3.up) * launchSpeed);
+        float f = dmg.dir.magnitude;
+
+        Launch((dmg.dir.normalized + Vector3.up) * launchSpeed * f);
         motor.enabledAirControl = false;
         ctrl.enabled = false;
         stunTimer.Set();

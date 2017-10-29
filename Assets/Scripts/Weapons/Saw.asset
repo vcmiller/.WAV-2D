@@ -9,8 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb65bae74598f1b4596dee387b2d1942, type: 3}
-  m_Name: WpnSquare
+  m_Name: Saw
   m_EditorClassIdentifier: 
-  canAttackUp: 0
-  canAttackDown: 0
-  stateName: Square
+  canAttackUp: 1
+  canAttackDown: 1
+  damage: 1
+  force: 1
+  range: 1.5
+  attackDur: 0.13
+  attackCooldown: 0.3
+  swingSound: {fileID: 8300000, guid: 10af380668005f04a925cc8cfd36fdc0, type: 3}
+  hitSound: {fileID: 8300000, guid: e103ed343be69884b85fa03db332ea70, type: 3}
