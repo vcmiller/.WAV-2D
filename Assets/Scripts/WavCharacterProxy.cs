@@ -6,17 +6,17 @@ public class WavCharacterProxy : CharacterProxy {
     protected override void Awake() {
         base.Awake();
 
-        RegisterInputChannel("Attack", false, true);
+        RegisterInputChannel("Attack", 0, true);
         RegisterInputChannel("CancelJump", false, true);
     }
 
-    public bool attack {
+    public int attack {
         get {
-            return GetBool("Attack");
+            return GetInt("Attack");
         }
 
         set {
-            SetBool("Attack", value);
+            SetInt("Attack", value, 0, 3);
         }
     }
 

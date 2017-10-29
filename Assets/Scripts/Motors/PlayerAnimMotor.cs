@@ -15,11 +15,11 @@ public class PlayerAnimMotor : BasicMotor<WavCharacterProxy> {
 
         if (attackMotor.attacking) {
             if (attackMotor.attackDir == Vector2.up) {
-                Play(State.SawUp);
+                PlayAttack(State.Up);
             } else if (attackMotor.attackDir == Vector2.down) {
-                Play(State.SawDown);
+                PlayAttack(State.Down);
             } else {
-                Play(State.SawSide);
+                PlayAttack(State.Side);
             }
         } else if (!motor.grounded) {
             Play(State.Jump);
@@ -40,10 +40,14 @@ public class PlayerAnimMotor : BasicMotor<WavCharacterProxy> {
     }
 
     public enum State {
-        Idle, Run, SawSide, SawUp, SawDown, Jump
+        Idle, Run, Jump, Side, Up, Down
     }
 
     private void Play(State state) {
         anim.Play(state.ToString());
+    }
+
+    private void PlayAttack(State state) {
+        anim.Play(attackMotor.curWeapon.stateName + state.ToString());
     }
 }

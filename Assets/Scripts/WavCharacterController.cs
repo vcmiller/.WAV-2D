@@ -20,6 +20,10 @@ public class WavCharacterController : PlayerController<WavCharacterProxy> {
     }
 
     public void ButtonDown_Fire1() {
-        controlled.attack = true;
+        controlled.attack = 1;
+    }
+
+    public void ButtonDown_Fire3() {
+        controlled.attack = 2;
     }
 }

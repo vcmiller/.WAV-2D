@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb65bae74598f1b4596dee387b2d1942, type: 3}
+  m_Name: WpnSquare
+  m_EditorClassIdentifier: 
+  canAttackUp: 0
+  canAttackDown: 0
+  stateName: Square

@@ -10,6 +10,7 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
     }
 
     public Vector2 attackDir { get; private set; }
+    public Weapon curWeapon { get; private set; }
 
     public float attackCooldown;
     public float attackDuration;
@@ -28,6 +29,8 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
     public float knockbackDown = 3;
     public float knockbackUp = 10;
 
+    public Weapon[] weapons;
+
     public LayerMask hitMask;
 
     public AudioClip swordSwing;
@@ -45,15 +48,16 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
     }
 
     public override void TakeInput() {
-        if (control.attack && attackCooldownTimer.Use()) {
+        if (control.attack > 0 && control.attack <= weapons.Length && attackCooldownTimer.Use()) {
             attackExpirationTimer.Set();
 
             BoxCollider2D hitbox = null;
+            curWeapon = weapons[control.attack - 1];
             
-            if (control.movement.y > 0.5f) {
+            if (control.movement.y > 0.5f && curWeapon.canAttackUp) {
                 attackDir = Vector2.up;
                 hitbox = triggerUp;
-            } else if (control.movement.y < -0.5f && !mainMotor.grounded) {
+            } else if (control.movement.y < -0.5f && !mainMotor.grounded && curWeapon.canAttackDown) {
                 attackDir = Vector2.down;
                 hitbox = triggerDown;
             } else {

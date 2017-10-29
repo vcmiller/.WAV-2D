@@ -402,11 +402,16 @@ MonoBehaviour:
   knockbackSide: 15
   knockbackDown: 3
   knockbackUp: 10
+  weapons:
+  - {fileID: 11400000, guid: a81cf6b719b4ca04fa03387dcd5255b6, type: 2}
+  - {fileID: 11400000, guid: f8eafb4120c358047bb0f707d5cf4480, type: 2}
   hitMask:
     serializedVersion: 2
     m_Bits: 4294967039
   swordSwing: {fileID: 8300000, guid: 10af380668005f04a925cc8cfd36fdc0, type: 3}
   swordHit: {fileID: 8300000, guid: e103ed343be69884b85fa03db332ea70, type: 3}
+  slashPrefab: {fileID: 1976368191001502, guid: dab8e1ecdfb81f241a26e06ddfe88d19,
+    type: 2}
 --- !u!114 &114449136465184426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -495,7 +500,7 @@ MonoBehaviour:
   hitLaunchSpeed: {x: 10, y: 5}
   hitStunTime: 0.5
   hitInvuln: 1.5
-  hitSlowRatio: 0.01
+  hitSlowRatio: 0
   hitSlowDuration: 0.5
   dmgSound: {fileID: 8300000, guid: c0f46f2a67fd9594eac27b01bac6af68, type: 3}
   stepSound: {fileID: 8300000, guid: d0c8c68f0983c2c439ffb823ec4a2313, type: 3}
