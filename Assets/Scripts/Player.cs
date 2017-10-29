@@ -25,6 +25,14 @@ public class Player : MonoBehaviour {
     public AudioClip dmgSound;
     public AudioClip stepSound;
 
+    public Vector2 facing
+    {
+        get
+        {
+            return (anim.sprite.flipX ? Vector2.left : Vector2.right);
+        }
+    }
+
     private bool air = false;
 
     private void Awake() {

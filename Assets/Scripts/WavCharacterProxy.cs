@@ -8,6 +8,7 @@ public class WavCharacterProxy : CharacterProxy {
 
         RegisterInputChannel("Attack", 0, true);
         RegisterInputChannel("CancelJump", false, true);
+        RegisterInputChannel("AltAttack", false, false);
     }
 
     public int attack {
@@ -27,6 +28,18 @@ public class WavCharacterProxy : CharacterProxy {
 
         set {
             SetBool("CancelJump", value);
+        }
+    }
+
+    public bool altAttack
+    {
+        get
+        {
+            return GetBool("AltAttack");
+        }
+        set
+        {
+            SetBool("AltAttack", value);
         }
     }
 }

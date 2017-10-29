@@ -45,6 +45,13 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
 
             attackExpirationTimer.Set();
 
+
+            if (control.altAttack)
+            {
+                curWeapon.AltAttack();
+                return;
+            }
+
             var b = mainMotor.box;
 
             Vector2 pos, size;
