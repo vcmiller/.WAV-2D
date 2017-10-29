@@ -16,6 +16,10 @@ public class Health : MonoBehaviour {
 	}
 
     public virtual void ApplyDamage(Damage dmg) {
+        if (!enabled) {
+            return;
+        }
+
         health -= dmg.amount;
         health = Mathf.Max(health, 0);
         SendMessage("DamageNotify", dmg, SendMessageOptions.DontRequireReceiver);

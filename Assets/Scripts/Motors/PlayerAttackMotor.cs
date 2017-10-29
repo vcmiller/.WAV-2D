@@ -24,7 +24,16 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
     public BoxCollider2D triggerRight;
     public BoxCollider2D triggerLeft;
 
+    public float knockbackSide = 15;
+    public float knockbackDown = 3;
+    public float knockbackUp = 10;
+
     public LayerMask hitMask;
+
+    public AudioClip swordSwing;
+    public AudioClip swordHit;
+
+    public GameObject slashPrefab;
 
     protected override void Awake() {
         base.Awake();
@@ -62,10 +71,31 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
             var hits = Physics2D.OverlapBoxAll(hitbox.transform.position, hitbox.size, 0, hitMask);
             Physics2D.queriesHitTriggers = b;
 
+            bool anyHit = false;
+
             foreach (var hit in hits) {
                 var h = hit.GetComponent<Health>();
                 if (h) {
                     h.ApplyDamage(new Damage(1, hit.transform.position, attackDir));
+                    anyHit = true;
+                }
+            }
+
+            Util.PlayClipAtPoint(swordSwing, transform.position, 1, 0.5f, false, null);
+
+            if (anyHit) {
+                Util.PlayClipAtPoint(swordHit, transform.position, 1, 0.5f, false, null);
+
+                var slash = Instantiate(slashPrefab);
+                slash.transform.position = transform.position + (Vector3)attackDir;
+                slash.transform.right = attackDir;
+
+                if (attackDir == Vector2.down) {
+                    mainMotor.velocity = Vector2.up * knockbackUp;
+                } else if (attackDir == Vector2.up) {
+                    mainMotor.velocity = Vector2.down * knockbackDown;
+                } else {
+                    mainMotor.velocity = -attackDir * knockbackSide;
                 }
             }
             // Attack code goes here!

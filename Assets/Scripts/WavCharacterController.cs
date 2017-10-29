@@ -15,6 +15,10 @@ public class WavCharacterController : PlayerController<WavCharacterProxy> {
         controlled.jump = true;
     }
 
+    public void ButtonUp_Jump() {
+        controlled.cancelJump = true;
+    }
+
     public void ButtonDown_Fire1() {
         controlled.attack = true;
     }

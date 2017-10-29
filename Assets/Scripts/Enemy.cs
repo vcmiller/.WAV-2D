@@ -4,13 +4,15 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour {
     public float launchSpeed;
+    
+    public Controller ctrl { get; private set; }
 
     protected virtual void Awake() {
-
+        ctrl = GetComponent<Controller>();
     }
 
     protected virtual void DamageNotify(Damage dmg) {
-
+        Launch(dmg.dir * launchSpeed);
     }
 
     protected virtual void ZeroHealth() {

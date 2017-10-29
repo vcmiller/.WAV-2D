@@ -7,6 +7,7 @@ public class WavCharacterProxy : CharacterProxy {
         base.Awake();
 
         RegisterInputChannel("Attack", false, true);
+        RegisterInputChannel("CancelJump", false, true);
     }
 
     public bool attack {
@@ -16,6 +17,16 @@ public class WavCharacterProxy : CharacterProxy {
 
         set {
             SetBool("Attack", value);
+        }
+    }
+
+    public bool cancelJump {
+        get {
+            return GetBool("CancelJump");
+        }
+
+        set {
+            SetBool("CancelJump", value);
         }
     }
 }

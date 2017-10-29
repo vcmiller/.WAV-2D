@@ -3,6 +3,26 @@ using System.Collections;
 
 public static class Util {
 
+    public static AudioSource PlayClipAtPoint(AudioClip clip, Vector3 point, float volume = 1, float spatial = 1, bool loop = false, Transform attach = null) {
+        GameObject obj = new GameObject();
+        obj.name = "One shot audio (SBR)";
+        obj.transform.parent = attach;
+        obj.transform.position = point;
+
+        var src = obj.AddComponent<AudioSource>();
+        src.clip = clip;
+        src.loop = loop;
+        src.spatialBlend = spatial;
+        src.volume = volume;
+        src.Play();
+
+        if (!loop) {
+            Object.Destroy(obj, clip.length);
+        }
+
+        return src;
+    }
+
     public static void GetPoints(this CapsuleCollider capsule, out Vector3 point1, out Vector3 point2, out float radius, out float height) {
         Vector3 capsuleCenter = capsule.transform.TransformPoint(capsule.center);
         Vector3 capsuleUp;

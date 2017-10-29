@@ -46,6 +46,8 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
     [Tooltip("The value to multiply Physics.Gravity by.")]
     public float gravityScale = 1;
 
+    public bool enabledAirControl = true;
+
     [Header("Movement: Falling")]
     [Tooltip("Air control multiplier (air acceleration is Air Control * Walk Acceleration.")]
     public float airControl = 0.5f;
@@ -69,11 +71,14 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         Vector2 move = control.movement;
         move.y = 0;
         move *= walkSpeed;
-
-        //if (body.isGrounded) {
+        
         float accel = walkAcceleration;
         if (!grounded) {
-            accel *= airControl;
+            if (enabledAirControl) {
+                accel *= airControl;
+            } else {
+                accel = 0;
+            }
         }
         velocity = Vector2.MoveTowards(velocity, new Vector2(move.x, velocity.y), accel * Time.deltaTime);
         velocity += Physics2D.gravity * gravityScale * Time.deltaTime;

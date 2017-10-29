@@ -4,16 +4,27 @@ using UnityEngine;
 public class ExpirationTimer {
 	public float expiration { get; set; }
 	public float lastSet { get; set; }
+    public bool unscaled { get; set; }
+
+    private float curTime {
+        get {
+            if (unscaled) {
+                return Time.unscaledTime;
+            } else {
+                return Time.time;
+            }
+        }
+    }
 
 	public bool expired {
 		get {
-			return Time.time - lastSet > expiration;
+			return curTime - lastSet > expiration;
 		}
 	}
 
     public float remaining {
         get {
-            return Mathf.Max(0, expiration - (Time.time - lastSet));
+            return Mathf.Max(0, expiration - (curTime - lastSet));
         }
     }
 
@@ -22,7 +33,7 @@ public class ExpirationTimer {
             if (expired) {
                 return 0;
             } else {
-                return 1 - ((Time.time - lastSet) / expiration);
+                return 1 - ((curTime - lastSet) / expiration);
             }
         }
     }
@@ -33,11 +44,11 @@ public class ExpirationTimer {
 	}
 
 	public void Set() {
-		lastSet = Time.time;
+        lastSet = curTime;
 	}
 
 	public void Clear() {
-		lastSet = Time.time - expiration;
+        lastSet = curTime - expiration;
 	}
 }
 
