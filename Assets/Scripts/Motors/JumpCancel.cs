@@ -18,7 +18,7 @@ public class JumpCancel : BasicMotor<WavCharacterProxy> {
             jumping = false;
         }
 
-        if (control.jump && mainMotor.grounded) {
+        if (mainMotor.jumped) {
             jumping = true;
         }
 

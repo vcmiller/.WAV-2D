@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61934986745733012}
   - component: {fileID: 114287026239019010}
   - component: {fileID: 50514649600237574}
+  - component: {fileID: 114876500611935684}
   m_Layer: 10
   m_Name: Proj1
   m_TagString: Untagged
@@ -125,6 +126,18 @@ MonoBehaviour:
   homingAngleSpeed: 2
   homing: 1
   homingTarget: {fileID: 0}
+--- !u!114 &114876500611935684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266280073078660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4141643b4088b842b2b821542a9cc6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToLive: 4
 --- !u!212 &212710491830281688
 SpriteRenderer:
   m_ObjectHideFlags: 1

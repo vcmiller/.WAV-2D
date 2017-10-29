@@ -12,6 +12,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
     public BoxCollider2D box { get; private set; }
 
     public bool grounded { get; private set; }
+    public bool jumped { get; private set; }
 
     [HideInInspector]
     public Vector2 velocity;
@@ -83,8 +84,10 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         velocity = Vector2.MoveTowards(velocity, new Vector2(move.x, velocity.y), accel * Time.deltaTime);
         velocity += Physics2D.gravity * gravityScale * Time.deltaTime;
 
+        jumped = false;
         if (grounded && control.jump) {
             velocity.y = jumpSpeed;
+            jumped = true;
         }
 
         RaycastHit2D hit;

@@ -30,13 +30,16 @@ public class DishAttackMotor : BasicMotor<CharacterAttackProxy> {
 
     public void Fire() {
         Vector2 fwd = Vector2.right;
+        Vector3 launchPoint = transform.GetChild(0).localPosition;
 
         if (GetComponent<SpriteRenderer>().flipX) {
             fwd = Vector2.left;
+            launchPoint.x *= -1;
         }
 
         var proj = Instantiate(projPrefab).GetComponent<WavProjectile>();
-        proj.transform.position = transform.GetChild(0).position;
+        Vector3 v = transform.position + launchPoint;
+        proj.transform.position = v;
         proj.FireAt(fwd, target);
     }
 }
