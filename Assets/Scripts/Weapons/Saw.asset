@@ -8,9 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb65bae74598f1b4596dee387b2d1942, type: 3}
+  m_Script: {fileID: 0}
   m_Name: Saw
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sawtooth
   canAttackUp: 1
   canAttackDown: 1
   damage: 1
@@ -20,3 +20,13 @@ MonoBehaviour:
   attackCooldown: 0.3
   swingSound: {fileID: 8300000, guid: 10af380668005f04a925cc8cfd36fdc0, type: 3}
   hitSound: {fileID: 8300000, guid: e103ed343be69884b85fa03db332ea70, type: 3}
+  onlyTerrain:
+    serializedVersion: 2
+    m_Bits: 1
+  onlyEnemies:
+    serializedVersion: 2
+    m_Bits: 512
+  platformPrefab: {fileID: 114255579919553042, guid: b8a04ff63dc3d6e4c919329a294b325e,
+    type: 2}
+  slashPrefab: {fileID: 114726112607216016, guid: dab8e1ecdfb81f241a26e06ddfe88d19,
+    type: 2}

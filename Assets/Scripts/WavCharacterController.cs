@@ -26,4 +26,14 @@ public class WavCharacterController : PlayerController<WavCharacterProxy> {
     public void ButtonDown_Fire3() {
         controlled.attack = 2;
     }
+
+    public void ButtonDown_AltAttackChord()
+    {
+        controlled.altAttack = true;
+    }
+
+    public void ButtonUp_AltAttackChord()
+    {
+        controlled.altAttack = false;
+    }
 }
