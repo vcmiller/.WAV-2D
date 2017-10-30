@@ -8,8 +8,12 @@ public class AwakenTrigger : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player")) {
             foreach (var obj in targets) {
-                obj.SendMessage("Awaken", SendMessageOptions.DontRequireReceiver);
+                if (obj) {
+                    obj.SendMessage("Awaken", SendMessageOptions.DontRequireReceiver);
+                }
             }
+
+            Destroy(gameObject);
         }
     }
 }

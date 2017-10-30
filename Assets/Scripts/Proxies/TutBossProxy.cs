@@ -8,6 +8,7 @@ public class TutBossProxy : CharacterProxy {
 
         RegisterInputChannel("Awoken", false, false);
         RegisterInputChannel("Attack", 0, true);
+        RegisterInputChannel("AttackDir", 1, false);
     }
 
     public bool awoken {
@@ -27,6 +28,16 @@ public class TutBossProxy : CharacterProxy {
 
         set {
             SetInt("Attack", value);
+        }
+    }
+
+    public int attackDir {
+        get {
+            return GetInt("AttackDir");
+        }
+
+        set {
+            SetInt("AttackDir", value);
         }
     }
 }

@@ -7,6 +7,7 @@ public class TutBossAnimMotor : BasicMotor<TutBossProxy> {
 
     public Animator anim { get; private set; }
     public TutBossAttackMotor attack { get; private set; }
+    public SpriteRenderer sprite { get; private set; }
 
     private bool spawnedAnim = false;
 
@@ -17,15 +18,23 @@ public class TutBossAnimMotor : BasicMotor<TutBossProxy> {
 
         anim = GetComponent<Animator>();
         attack = GetComponent<TutBossAttackMotor>();
+        sprite = GetComponent<SpriteRenderer>();
         lastPlayed = State.Aggro;
     }
 
     public override void TakeInput() {
+
         if (!control.awoken) {
+            sprite.flipX = control.attackDir < 0;
             Play(State.Wait);
         } else if (attack.charging) {
+            sprite.flipX = attack.facing < 0;
             Play(State.Charge);
+        } else if (attack.meleeing) {
+            sprite.flipX = attack.facing < 0;
+            Play(State.Melee);
         } else {
+            sprite.flipX = control.attackDir < 0;
             Play(State.Aggro);
 
             if (!spawnedAnim) {
@@ -40,7 +49,7 @@ public class TutBossAnimMotor : BasicMotor<TutBossProxy> {
     }
 
     public enum State {
-        Wait, Aggro, Charge
+        Wait, Aggro, Charge, Melee
     }
 
     private void Play(State state) {

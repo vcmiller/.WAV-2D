@@ -4,34 +4,103 @@ using UnityEngine;
 
 public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
     public bool charging { get; private set; }
+    public bool meleeing { get; private set; }
     public CharacterMotor2D motor { get; private set; }
+    public int facing { get; private set; }
 
     public float chargeWindup;
     public float chargeTime;
     public float chargeEnd;
-
     public float chargeSpeed;
+
+    public float meleeWindup;
+    public float meleeDashTime;
+    public float meleeMid;
+    public float meleeEnd;
+    public float meleeDashSpeed;
+
+    public BoxCollider2D chargeHitbox;
+    public BoxCollider2D meleeHitbox;
+
+    public LayerMask hitMask;
+    public float damage;
 
     protected override void Awake() {
         base.Awake();
 
         motor = GetComponent<CharacterMotor2D>();
+        facing = 1;
     }
 
     public override void TakeInput() {
-        if (control.attack == 1 && !charging) {
+        if (control.attack == 1 && !charging && !meleeing) {
             StartCoroutine(doCharge());
+        } else if (control.attack == 2 && !charging && !meleeing) {
+            StartCoroutine(doMelee());
         }
+    }
+
+    private IEnumerator doMelee() {
+        meleeing = true;
+        facing = control.attackDir;
+
+        yield return new WaitForSeconds(meleeWindup);
+
+        float t = Time.time;
+
+        while (Time.time - t < meleeDashTime) {
+            motor.velocity = Vector2.right * facing * meleeDashSpeed;
+
+            yield return null;
+        }
+
+        motor.velocity = Vector2.zero;
+
+        t = Time.time;
+        while (Time.time - t < meleeMid) {
+            hitTest(meleeHitbox.offset, meleeHitbox.size);
+            yield return null;
+        }
+
+        if (control.attackDir != facing) {
+            meleeing = false;
+            yield break;
+        }
+
+        t = Time.time;
+
+        while (Time.time - t < meleeDashTime) {
+            motor.velocity = Vector2.right * facing * meleeDashSpeed;
+
+            yield return null;
+        }
+
+        motor.velocity = Vector2.zero;
+
+        t = Time.time;
+        while (Time.time - t < meleeMid) {
+            hitTest(meleeHitbox.offset, meleeHitbox.size);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(meleeEnd);
+
+        meleeing = false;
     }
 
     private IEnumerator doCharge() {
         charging = true;
+        facing = control.attackDir;
+
         yield return new WaitForSeconds(chargeWindup);
 
         float t = Time.time;
 
         while (Time.time - t < chargeTime) {
-            motor.velocity = Vector2.left * chargeSpeed;
+            motor.velocity = Vector2.right * facing * chargeSpeed;
+
+            hitTest(chargeHitbox.offset, chargeHitbox.size);
+
             yield return null;
         }
 
@@ -39,5 +108,17 @@ public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
 
         yield return new WaitForSeconds(chargeEnd);
         charging = false;
+    }
+
+    private void hitTest(Vector3 offset, Vector3 size) {
+        Vector3 o = offset;
+        o.x *= facing;
+
+        foreach (var hit in Physics2D.OverlapBoxAll(transform.position + o, size, 0, hitMask)) {
+            var h = hit.GetComponent<Health>();
+            if (h) {
+                h.ApplyDamage(new Damage(damage, transform.position, Vector3.right * facing));
+            }
+        }
     }
 }
