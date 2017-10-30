@@ -25,7 +25,7 @@ namespace Cinemachine
         /// Small numbers are more responsive, rapidly translating the camera to keep the target's
         /// x-axis offset.  Larger numbers give a more heavy slowly responding camera.
         /// Using different settings per axis can yield a wide range of camera behaviors</summary>
-        //[Range(0f, 20f)]
+        [Range(0f, 20f)]
         [Tooltip("How aggressively the camera tries to maintain the offset in the X-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's x-axis offset.  Larger numbers give a more heavy slowly responding camera. Using different settings per axis can yield a wide range of camera behaviors.")]
         public float m_XDamping = 1f;
 
@@ -33,7 +33,7 @@ namespace Cinemachine
         /// Small numbers are more responsive, rapidly translating the camera to keep the target's
         /// y-axis offset.  Larger numbers give a more heavy slowly responding camera.
         /// Using different settings per axis can yield a wide range of camera behaviors</summary>
-        //[Range(0f, 20f)]
+        [Range(0f, 20f)]
         [Tooltip("How aggressively the camera tries to maintain the offset in the Y-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's y-axis offset.  Larger numbers give a more heavy slowly responding camera. Using different settings per axis can yield a wide range of camera behaviors.")]
         public float m_YDamping = 1f;
 
@@ -41,9 +41,13 @@ namespace Cinemachine
         /// Small numbers are more responsive, rapidly translating the camera to keep the
         /// target's z-axis offset.  Larger numbers give a more heavy slowly responding camera.
         /// Using different settings per axis can yield a wide range of camera behaviors</summary>
-        //[Range(0f, 20f)]
+        [Range(0f, 20f)]
         [Tooltip("How aggressively the camera tries to maintain the offset in the Z-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's z-axis offset.  Larger numbers give a more heavy slowly responding camera. Using different settings per axis can yield a wide range of camera behaviors.")]
         public float m_ZDamping = 1f;
+
+        public bool useLimits;
+
+        public Bounds limits;
 
         /// <summary>
         /// Selects the coordinate space for the <c>Transposer</c> to use for its offsets
@@ -144,8 +148,14 @@ namespace Cinemachine
         {
             if (!IsValid)
                 return Vector3.zero;
-            return VirtualCamera.Follow.position
+            var v = VirtualCamera.Follow.position
                 + GetReferenceOrientation() * m_FollowOffset;
+
+            if (useLimits && !limits.Contains(v)) {
+                v = limits.ClosestPoint(v);
+            }
+
+            return v;
         }
 
         Quaternion m_targetOrientationOnAssign = Quaternion.identity;

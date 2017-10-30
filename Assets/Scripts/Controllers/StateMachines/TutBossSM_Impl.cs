@@ -20,16 +20,16 @@ public class TutBossSM_Impl : GroundEnemySMBase<TutBossProxy> {
         control.awoken = true;
     }
 
+    public void State_Wait() {
+        control.attackDir = player.transform.position.x < transform.position.x ? -1 : 1;
+    }
+
     public bool TransitionCond_Wait_Aggro() {
         return control.awoken;
     }
 
     public void TransitionNotify_Wait_Aggro() {
         aggroExpiration.Set();
-    }
-
-    public void StateEnter_Aggro() {
-        control.attackDir = player.transform.position.x < transform.position.x ? -1 : 1;
     }
 
     public bool TransitionCond_Aggro_Combat() {
@@ -41,7 +41,7 @@ public class TutBossSM_Impl : GroundEnemySMBase<TutBossProxy> {
         control.attackDir = player.transform.position.x < transform.position.x ? -1 : 1;
 
         if (Vector3.Distance(transform.position, player.transform.position) < chargeDist) {
-            control.attack = 2;
+            control.attack = Random.Range(0, 3) == 0 ? 1 : 2;
         } else {
             control.attack = 1;
         }

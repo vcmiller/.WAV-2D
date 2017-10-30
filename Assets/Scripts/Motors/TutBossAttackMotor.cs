@@ -56,9 +56,10 @@ public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
 
         motor.velocity = Vector2.zero;
 
+        hitTest(meleeHitbox.offset, meleeHitbox.size);
+
         t = Time.time;
         while (Time.time - t < meleeMid) {
-            hitTest(meleeHitbox.offset, meleeHitbox.size);
             yield return null;
         }
 
@@ -76,10 +77,11 @@ public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
         }
 
         motor.velocity = Vector2.zero;
+        
+        hitTest(meleeHitbox.offset, meleeHitbox.size);
 
         t = Time.time;
         while (Time.time - t < meleeMid) {
-            hitTest(meleeHitbox.offset, meleeHitbox.size);
             yield return null;
         }
 
