@@ -1,11 +1,13 @@
 fileFormatVersion: 2
 guid: 699a064ec580d6a4e95ca71ea7c46320
-timeCreated: 1509399871
+timeCreated: 1509402117
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: GrayTile_0
     21300002: GrayTile_1
+    21300004: GrayTile_2
+    21300006: GrayTile_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -102,7 +104,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 128
         width: 128
         height: 128
       alignment: 0
@@ -120,7 +122,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 0
+        y: 128
         width: 128
         height: 128
       alignment: 0
@@ -132,6 +134,42 @@ TextureImporter:
         - {x: -64, y: 0}
         - {x: 64, y: 0}
         - {x: 64, y: 64}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GrayTile_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 32, y: 64}
+        - {x: 32, y: 32}
+        - {x: 64, y: 32}
+        - {x: 64, y: 64}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GrayTile_3
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -64, y: 64}
+        - {x: -64, y: 32}
+        - {x: -32, y: 32}
+        - {x: -32, y: 64}
       tessellationDetail: 0
     outline: []
     physicsShape: []
