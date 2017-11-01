@@ -14,8 +14,18 @@ MonoBehaviour:
   defaultState: Move
   states:
   - name: Attack
+    hasEnter: 0
+    hasDuring: 1
+    hasExit: 0
     transitions:
-    - Move
+    - to: Move
+      hasNotify: 0
+    position: {x: 176, y: 192}
   - name: Move
+    hasEnter: 0
+    hasDuring: 1
+    hasExit: 0
     transitions:
-    - Attack
+    - to: Attack
+      hasNotify: 0
+    position: {x: 480, y: 192}

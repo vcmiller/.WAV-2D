@@ -8,11 +8,7 @@ public class ExpirationTimer {
 
     private float curTime {
         get {
-            if (unscaled) {
-                return Time.unscaledTime;
-            } else {
-                return Time.time;
-            }
+            return unscaled ? Time.unscaledTime : Time.time;
         }
     }
 
@@ -44,11 +40,11 @@ public class ExpirationTimer {
 	}
 
 	public void Set() {
-        lastSet = curTime;
+		lastSet = curTime;
 	}
 
 	public void Clear() {
-        lastSet = curTime - expiration;
+		lastSet = curTime - expiration;
 	}
 }
 

@@ -16,17 +16,15 @@ public class Health : MonoBehaviour {
 	}
 
     public virtual void ApplyDamage(Damage dmg) {
-        if (!enabled) {
-            return;
-        }
+        if (enabled) {
+            health -= dmg.amount;
+            health = Mathf.Max(health, 0);
+            SendMessage("DamageNotify", dmg, SendMessageOptions.DontRequireReceiver);
 
-        health -= dmg.amount;
-        health = Mathf.Max(health, 0);
-        SendMessage("DamageNotify", dmg, SendMessageOptions.DontRequireReceiver);
-
-        if (health == 0 && (!hasDied || repeatZeroHealth)) {
-            hasDied = true;
-            SendMessage("ZeroHealth", SendMessageOptions.DontRequireReceiver);
+            if (health == 0 && (!hasDied || repeatZeroHealth)) {
+                hasDied = true;
+                SendMessage("ZeroHealth", SendMessageOptions.DontRequireReceiver);
+            }
         }
     }
 }

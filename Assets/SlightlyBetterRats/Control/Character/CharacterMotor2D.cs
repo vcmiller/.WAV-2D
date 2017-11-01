@@ -13,12 +13,10 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
 
     public bool grounded { get; private set; }
     public bool jumped { get; private set; }
+    public bool enableAirControl { get; set; }
 
     [HideInInspector]
     public Vector2 velocity;
-
-    [HideInInspector]
-    private bool wasInAir = false;
 
     [Header("General")]
     [Tooltip("Increase this if your character is passing through colliders. Should be about 0.05 * the character's height.")]
@@ -47,8 +45,6 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
     [Tooltip("The value to multiply Physics.Gravity by.")]
     public float gravityScale = 1;
 
-    public bool enabledAirControl = true;
-
     [Header("Movement: Falling")]
     [Tooltip("Air control multiplier (air acceleration is Air Control * Walk Acceleration.")]
     public float airControl = 0.5f;
@@ -57,38 +53,41 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         base.Awake();
 
         box = GetComponent<BoxCollider2D>();
+        enableAirControl = true;
     }
 
     public override void TakeInput() {
-        bool collider = box.enabled;
-        bool startIn = Physics2D.queriesStartInColliders;
-        bool triggers = Physics2D.queriesHitTriggers;
-        //box.enabled = false;
-        Physics2D.queriesHitTriggers = false;
-        Physics2D.queriesStartInColliders = false;
-
-        int queryMask = blockingLayers;
-
         Vector2 move = control.movement;
         move.y = 0;
         move *= walkSpeed;
         
         float accel = walkAcceleration;
         if (!grounded) {
-            if (enabledAirControl) {
+            if (enableAirControl) {
                 accel *= airControl;
             } else {
                 accel = 0;
             }
         }
         velocity = Vector2.MoveTowards(velocity, new Vector2(move.x, velocity.y), accel * Time.deltaTime);
-        velocity += Physics2D.gravity * gravityScale * Time.deltaTime;
 
         jumped = false;
         if (grounded && control.jump) {
-            velocity.y = jumpSpeed;
             jumped = true;
+            velocity.y = jumpSpeed;
         }
+    }
+
+    public override void UpdateAfterInput() {
+        bool startIn = Physics2D.queriesStartInColliders;
+        bool triggers = Physics2D.queriesHitTriggers;
+
+        Physics2D.queriesHitTriggers = false;
+        Physics2D.queriesStartInColliders = false;
+
+        int queryMask = blockingLayers;
+
+        velocity += Physics2D.gravity * gravityScale * Time.deltaTime;
 
         RaycastHit2D hit;
 
@@ -128,7 +127,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
 
                     if (stepHeight <= maxStep) {
                         slope = Vector2.Angle(stepHit.normal, transform.up);
- 
+
                         if (slope < maxSlope && !Physics2D.BoxCast(center + stepHeightOff, size, angle, movement, d + queryExtraDistance, queryMask)) {
                             step = true;
                             movement += (Vector2)transform.up * stepHeight;
@@ -157,7 +156,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         d = vert.magnitude;
         Vector2 dir = vert.normalized;
         grounded = false;
-        
+
         if (d > 0 && (hit = Physics2D.BoxCast(center - dir * queryExtraDistance, size, angle, vert, d + queryExtraDistance, queryMask))) {
             Vector2 norm = hit.normal;
 
@@ -184,21 +183,8 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         }
 
         transform.Translate(vert, Space.World);
-
-        //box.enabled = collider;
+        
         Physics2D.queriesHitTriggers = triggers;
         Physics2D.queriesStartInColliders = startIn;
-
-        //wasInAir = false;
-        /*} else {
-            velocity = Vector3.MoveTowards(velocity, new Vector3(move.x, velocity.y, move.z), walkAcceleration * airControl * Time.deltaTime);
-
-            velocity += Physics.gravity * Time.deltaTime;
-
-            wasInAir = true;
-        }
-
-        var flags = body.Move(velocity * Time.deltaTime);*/
-
     }
 }

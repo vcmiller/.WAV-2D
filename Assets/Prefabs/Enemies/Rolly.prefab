@@ -123,7 +123,6 @@ MonoBehaviour:
   maxStep: 0.2
   jumpSpeed: 15
   gravityScale: 4
-  enabledAirControl: 1
   airControl: 1
 --- !u!114 &114357022270616682
 MonoBehaviour:

@@ -44,10 +44,10 @@ public class StateMachineBinding {
 
         foreach (var stateDef in def.states) {
             State begin = states[stateDef.name];
-            foreach (string transition in stateDef.transitions) {
-                State end = states[transition];
+            foreach (var transition in stateDef.transitions) {
+                State end = states[transition.to];
                 if (end != null) {
-                    begin.transitions.Add(transition, new Transition(end));
+                    begin.transitions.Add(transition.to, new Transition(end));
                 } else {
                     Debug.LogWarning("Warning: Transition to unknown state " + transition + " in file " + def.name);
                 }

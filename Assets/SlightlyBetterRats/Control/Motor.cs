@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Motor : MonoBehaviour {
-    protected virtual void Awake() {
+    public bool enableInput { get; set; }
 
+    protected virtual void Awake() {
+        enableInput = true;
     }
 
     public abstract void TakeInput();
+
+    public virtual void UpdateAfterInput() { }
 }

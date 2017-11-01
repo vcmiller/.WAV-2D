@@ -100,6 +100,7 @@ public class ControlProxy : MonoBehaviour {
         foreach (var motr in GetComponentsInChildren<Motor>()) {
             if (motr.enabled) {
                 motr.TakeInput();
+                motr.UpdateAfterInput();
             }
         }
 

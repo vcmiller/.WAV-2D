@@ -21,7 +21,7 @@ public class GroundEnemy : Enemy {
 
     private void Update() {
         if (stunTimer.expired) {
-            motor.enabledAirControl = true;
+            motor.enableAirControl = true;
             ctrl.enabled = true;
         }
     }
@@ -30,7 +30,7 @@ public class GroundEnemy : Enemy {
         float f = dmg.dir.magnitude;
 
         Launch((dmg.dir.normalized + Vector3.up) * launchSpeed * f);
-        motor.enabledAirControl = false;
+        motor.enableAirControl = false;
         ctrl.enabled = false;
         stunTimer.Set();
     }

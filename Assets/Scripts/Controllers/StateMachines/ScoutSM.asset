@@ -14,4 +14,8 @@ MonoBehaviour:
   defaultState: Patrol
   states:
   - name: Patrol
+    hasEnter: 0
+    hasDuring: 1
+    hasExit: 0
     transitions: []
+    position: {x: 208, y: 192}

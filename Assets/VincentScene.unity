@@ -340,6 +340,21 @@ Prefab:
       propertyPath: m_Name
       value: Boss Cam Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 61110095662870560, guid: 92d76dce1ca859844bef6339af6d845d,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 61110095662870560, guid: 92d76dce1ca859844bef6339af6d845d,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 61110095662870560, guid: 92d76dce1ca859844bef6339af6d845d,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92d76dce1ca859844bef6339af6d845d, type: 2}
   m_IsPrefabParent: 0
@@ -352,11 +367,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4222572489558932, guid: 41b5097e9d28a5b499f0a6f546d153a4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -16.65
+      value: -22.9
       objectReference: {fileID: 0}
     - target: {fileID: 4222572489558932, guid: 41b5097e9d28a5b499f0a6f546d153a4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -44.95
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 4222572489558932, guid: 41b5097e9d28a5b499f0a6f546d153a4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -599,7 +614,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1198285190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.65, y: -44.95, z: -10}
+  m_LocalPosition: {x: -22.9, y: 1.4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -801,11 +816,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4484421114165818, guid: cc04c82e51a6c464a8ea3dd47240d8ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -16.65
+      value: -22.9
       objectReference: {fileID: 0}
     - target: {fileID: 4484421114165818, guid: cc04c82e51a6c464a8ea3dd47240d8ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -45.95
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4484421114165818, guid: cc04c82e51a6c464a8ea3dd47240d8ac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2214,14 +2229,6 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 2098465507}
     m_ColliderPaths:
-    - - X: 130000000
-        Y: -30000000
-      - X: -130000000
-        Y: -30000000
-      - X: -130000000
-        Y: -40000000
-      - X: 130000000
-        Y: -40000000
     - - X: -170000000
         Y: -30000000
       - X: -270000000
@@ -2229,6 +2236,14 @@ CompositeCollider2D:
       - X: -270000000
         Y: -40000000
       - X: -170000000
+        Y: -40000000
+    - - X: 130000000
+        Y: -30000000
+      - X: -130000000
+        Y: -30000000
+      - X: -130000000
+        Y: -40000000
+      - X: 130000000
         Y: -40000000
     - - X: 10000000
         Y: -370000000
@@ -2270,14 +2285,6 @@ CompositeCollider2D:
         Y: -490000000
       - X: 10000000
         Y: -490000000
-    - - X: -50000000
-        Y: -410000000
-      - X: -90000000
-        Y: -410000000
-      - X: -90000000
-        Y: -415000000
-      - X: -50000000
-        Y: -415000000
     - - X: -270000000
         Y: -412500000
       - X: -267500000
@@ -2310,16 +2317,24 @@ CompositeCollider2D:
         Y: -415000000
       - X: -350000000
         Y: -415000000
+    - - X: -50000000
+        Y: -410000000
+      - X: -90000000
+        Y: -410000000
+      - X: -90000000
+        Y: -415000000
+      - X: -50000000
+        Y: -415000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 13, y: -3}
-      - {x: -13, y: -3}
-      - {x: -13, y: -4}
-      - {x: 13, y: -4}
     - - {x: -17, y: -3}
       - {x: -27, y: -3}
       - {x: -27, y: -4}
       - {x: -17, y: -4}
+    - - {x: 13, y: -3}
+      - {x: -13, y: -3}
+      - {x: -13, y: -4}
+      - {x: 13, y: -4}
     - - {x: 1, y: -37}
       - {x: 0, y: -37}
       - {x: 0, y: -44}
@@ -2340,10 +2355,6 @@ CompositeCollider2D:
       - {x: -24, y: -41.25}
       - {x: -24, y: -49}
       - {x: 1, y: -49}
-    - - {x: -5, y: -41}
-      - {x: -9, y: -41}
-      - {x: -9, y: -41.5}
-      - {x: -5, y: -41.5}
     - - {x: -27, y: -41.25}
       - {x: -26.75, y: -41.25}
       - {x: -26.75, y: -41}
@@ -2360,6 +2371,10 @@ CompositeCollider2D:
       - {x: -38, y: -41.25}
       - {x: -38, y: -41.5}
       - {x: -35, y: -41.5}
+    - - {x: -5, y: -41}
+      - {x: -9, y: -41}
+      - {x: -9, y: -41.5}
+      - {x: -5, y: -41.5}
   m_VertexDistance: 0.0005
 --- !u!50 &2098465506
 Rigidbody2D:

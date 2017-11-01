@@ -39,8 +39,9 @@ public class StateMachineRunner {
                 definition = null;
             } else {
                 impl = controlled.GetComponent<StateMachineImplBase>();
+
                 if (!impl) {
-                    impl = (MonoBehaviour) controlled.AddComponent(implType);
+                    impl = (MonoBehaviour)controlled.AddComponent(implType);
                 }
 
                 binding = new StateMachineBinding(definition);

@@ -12,6 +12,8 @@ public class CharacterMotor : BasicMotor<CharacterProxy> {
     public CapsuleCollider capsule { get; private set; }
 
     public bool grounded { get; private set; }
+    public bool jumped { get; private set; }
+    public bool enableAirControl { get; set; }
 
     [HideInInspector]
     public Vector3 velocity;
@@ -24,7 +26,7 @@ public class CharacterMotor : BasicMotor<CharacterProxy> {
     public float queryExtraDistance = 0.1f;
 
     [Tooltip("Layers that block the character.")]
-    public LayerMask[] blockingLayers = new LayerMask[1];
+    public LayerMask blockingLayers;
 
     [Header("Movement: Walking")]
     [Tooltip("The max walk speed of the character.")]
@@ -54,16 +56,10 @@ public class CharacterMotor : BasicMotor<CharacterProxy> {
         base.Awake();
 
         capsule = GetComponent<CapsuleCollider>();
+        enableAirControl = true;
     }
 
     public override void TakeInput() {
-        capsule.enabled = false;
-
-        int queryMask = 0;
-        foreach (LayerMask lm in blockingLayers) {
-            queryMask |= lm.value;
-        }
-
         Vector3 move = control.movement;
         move.y = 0;
         move *= walkSpeed;
@@ -71,14 +67,25 @@ public class CharacterMotor : BasicMotor<CharacterProxy> {
         //if (body.isGrounded) {
         float accel = walkAcceleration;
         if (!grounded) {
-            accel *= airControl;
+            if (enableAirControl) {
+                accel *= airControl;
+            } else {
+                accel = 0;
+            }
         }
+
         velocity = Vector3.MoveTowards(velocity, new Vector3(move.x, velocity.y, move.z), accel * Time.deltaTime);
-        velocity += Physics.gravity * gravityScale * Time.deltaTime;
 
         if (grounded && control.jump) {
             velocity.y = jumpSpeed;
         }
+    }
+
+    public override void UpdateAfterInput() {
+
+        int queryMask = blockingLayers;
+        
+        velocity += Physics.gravity * gravityScale * Time.deltaTime;
 
         RaycastHit hit;
 
@@ -175,19 +182,6 @@ public class CharacterMotor : BasicMotor<CharacterProxy> {
         }
 
         transform.Translate(vert, Space.World);
-
-        capsule.enabled = true;
-
-        //wasInAir = false;
-        /*} else {
-            velocity = Vector3.MoveTowards(velocity, new Vector3(move.x, velocity.y, move.z), walkAcceleration * airControl * Time.deltaTime);
-
-            velocity += Physics.gravity * Time.deltaTime;
-
-            wasInAir = true;
-        }
-
-        var flags = body.Move(velocity * Time.deltaTime);*/
 
     }
 }

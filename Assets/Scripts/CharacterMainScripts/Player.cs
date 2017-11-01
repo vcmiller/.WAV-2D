@@ -58,7 +58,7 @@ public class Player : MonoBehaviour {
 
     private void Update() {
         if (stunTimer.expired) {
-            motor.enabledAirControl = true;
+            motor.enableAirControl = true;
         }
 
         if (invulnTimer.expired) {
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour {
         Util.PlayClipAtPoint(dmgSound, transform.position, 1, 0.5f, false, transform);
 
         motor.velocity = new Vector2(x, y);
-        motor.enabledAirControl = false;
+        motor.enableAirControl = false;
         health.enabled = false;
         attack.enabled = false;
         Time.timeScale = hitSlowRatio;

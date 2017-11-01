@@ -148,19 +148,19 @@ public class PlayerController<T> : Controller where T : ControlProxy {
             }
 
             foreach (var m in buttonDown) {
-                if (Input.GetButtonDown(m.Key)) {
+                if (Input.GetButtonDown(m.Key + inputSuffix)) {
                     m.Value();
                 }
             }
 
             foreach (var m in buttonHeld) {
-                if (Input.GetButton(m.Key)) {
+                if (Input.GetButton(m.Key + inputSuffix)) {
                     m.Value();
                 }
             }
 
             foreach (var m in buttonUp) {
-                if (Input.GetButtonUp(m.Key)) {
+                if (Input.GetButtonUp(m.Key + inputSuffix)) {
                     m.Value();
                 }
             }
