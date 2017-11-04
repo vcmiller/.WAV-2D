@@ -19,7 +19,7 @@ MonoBehaviour:
     hasExit: 0
     transitions:
     - to: Aggro
-      hasNotify: 0
+      hasNotify: 1
     position: {x: 240, y: 64}
   - name: Aggro
     hasEnter: 0
@@ -35,3 +35,4 @@ MonoBehaviour:
     hasExit: 0
     transitions: []
     position: {x: 240, y: 256}
+  baseClass: StateMachine

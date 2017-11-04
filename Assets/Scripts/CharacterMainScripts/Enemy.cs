@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
 public abstract class Enemy : MonoBehaviour {
     public float launchSpeed;
     
-    public Controller ctrl { get; private set; }
+    public Brain brain { get; private set; }
 
     protected virtual void Awake() {
-        ctrl = GetComponent<Controller>();
+        brain = GetComponent<Brain>();
     }
 
     protected virtual void DamageNotify(Damage dmg) {

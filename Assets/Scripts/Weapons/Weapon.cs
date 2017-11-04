@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
 [CreateAssetMenu(menuName = "Weapon Info/Generic")]
 public class Weapon : ScriptableObject {

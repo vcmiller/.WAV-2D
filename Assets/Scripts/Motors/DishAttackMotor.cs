@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class DishAttackMotor : BasicMotor<CharacterAttackProxy> {
+public class DishAttackMotor : BasicMotor<EnemyAttackChannels> {
     public float attackTime = 1.5f;
 
     public float attackCooldown = 2;
@@ -13,19 +14,19 @@ public class DishAttackMotor : BasicMotor<CharacterAttackProxy> {
     public GameObject projPrefab;
     public Transform target;
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
 
         attackTimer = new ExpirationTimer(attackTime);
         attackCooldownTimer = new CooldownTimer(attackCooldown);
     }
 
     public override void TakeInput() {
-        if (control.attack && attackCooldownTimer.Use()) {
+        if (channels.attack && attackCooldownTimer.Use()) {
             attackTimer.Set();
         }
 
-        control.attackInProgress = !attackTimer.expired;
+        channels.attackInProgress = !attackTimer.expired;
     }
 
     public void Fire() {

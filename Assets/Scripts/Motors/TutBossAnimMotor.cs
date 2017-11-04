@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class TutBossAnimMotor : BasicMotor<TutBossProxy> {
+public class TutBossAnimMotor : BasicMotor<TutBossChannels> {
     public GameObject aggroGlow;
 
     public Animator anim { get; private set; }
@@ -13,8 +14,8 @@ public class TutBossAnimMotor : BasicMotor<TutBossProxy> {
 
     private State lastPlayed { get; set; }
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
 
         anim = GetComponent<Animator>();
         attack = GetComponent<TutBossAttackMotor>();
@@ -24,8 +25,8 @@ public class TutBossAnimMotor : BasicMotor<TutBossProxy> {
 
     public override void TakeInput() {
 
-        if (!control.awoken) {
-            sprite.flipX = control.attackDir < 0;
+        if (!channels.awoken) {
+            sprite.flipX = channels.attackDir < 0;
             Play(State.Wait);
         } else if (attack.charging) {
             sprite.flipX = attack.facing < 0;
@@ -34,7 +35,7 @@ public class TutBossAnimMotor : BasicMotor<TutBossProxy> {
             sprite.flipX = attack.facing < 0;
             Play(State.Melee);
         } else {
-            sprite.flipX = control.attackDir < 0;
+            sprite.flipX = channels.attackDir < 0;
             Play(State.Aggro);
 
             if (!spawnedAnim) {

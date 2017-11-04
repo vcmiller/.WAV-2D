@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class EnemySMBase<T> : StateMachineImpl<T> where T : ControlProxy {
+public abstract class EnemySMBase : StateMachine {
 
     private SpriteRenderer _sprite;
 

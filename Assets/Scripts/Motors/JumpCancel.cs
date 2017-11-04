@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class JumpCancel : BasicMotor<WavCharacterProxy> {
+public class JumpCancel : BasicMotor<WavCharacterChannels> {
     public CharacterMotor2D mainMotor { get; private set; }
 
     public bool jumping { get; private set; }
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
 
         mainMotor = GetComponent<CharacterMotor2D>();
     }
@@ -22,7 +23,7 @@ public class JumpCancel : BasicMotor<WavCharacterProxy> {
             jumping = true;
         }
 
-        if (control.cancelJump && jumping) {
+        if (channels.cancelJump && jumping) {
             mainMotor.velocity.y = 0;
         }
     }

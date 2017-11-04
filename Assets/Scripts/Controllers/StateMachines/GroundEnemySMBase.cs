@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class GroundEnemySMBase<T> : EnemySMBase<T> where T : ControlProxy {
+public abstract class GroundEnemySMBase : EnemySMBase {
     public float wallDist = 1;
     public float floorDist = 1.1f;
 

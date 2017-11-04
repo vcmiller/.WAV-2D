@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
 public class Player : MonoBehaviour {
-    public WavCharacterProxy proxy { get; private set; }
-    public Controller ctrl { get; private set; }
+    public WavCharacterChannels channels { get; private set; }
+    public Brain brain { get; private set; }
 
     public CharacterMotor2D motor { get; private set; }
     public PlayerAnimMotor anim { get; private set; }
@@ -36,8 +37,8 @@ public class Player : MonoBehaviour {
     private bool air = false;
 
     private void Awake() {
-        proxy = GetComponent<WavCharacterProxy>();
-        ctrl = GetComponent<Controller>();
+        channels = GetComponent<Brain>().channels as WavCharacterChannels;
+        brain = GetComponent<Brain>();
 
         motor = GetComponent<CharacterMotor2D>();
         anim = GetComponent<PlayerAnimMotor>();

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class FlyingEnemyMotor : BasicMotor<BasicControlProxy> {
+public class FlyingEnemyMotor : BasicMotor<CharacterChannels> {
     [HideInInspector]
     public Vector2 velocity;
 
@@ -14,8 +15,8 @@ public class FlyingEnemyMotor : BasicMotor<BasicControlProxy> {
 
     public BoxCollider2D box { get; private set; }
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
 
         box = GetComponent<BoxCollider2D>();
     }
@@ -30,7 +31,7 @@ public class FlyingEnemyMotor : BasicMotor<BasicControlProxy> {
 
         int queryMask = blockingLayers;
 
-        Vector2 move = control.movement * speed;
+        Vector2 move = channels.movement * speed;
         velocity = Vector2.MoveTowards(velocity, move, acceleration * Time.deltaTime);
 
         RaycastHit2D hit;

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
+public class TutBossAttackMotor : BasicMotor<TutBossChannels> {
     public bool charging { get; private set; }
     public bool meleeing { get; private set; }
     public CharacterMotor2D motor { get; private set; }
@@ -25,24 +26,24 @@ public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
     public LayerMask hitMask;
     public float damage;
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
 
         motor = GetComponent<CharacterMotor2D>();
         facing = 1;
     }
 
     public override void TakeInput() {
-        if (control.attack == 1 && !charging && !meleeing) {
+        if (channels.attack == 1 && !charging && !meleeing) {
             StartCoroutine(doCharge());
-        } else if (control.attack == 2 && !charging && !meleeing) {
+        } else if (channels.attack == 2 && !charging && !meleeing) {
             StartCoroutine(doMelee());
         }
     }
 
     private IEnumerator doMelee() {
         meleeing = true;
-        facing = control.attackDir;
+        facing = channels.attackDir;
 
         yield return new WaitForSeconds(meleeWindup);
 
@@ -63,7 +64,7 @@ public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
             yield return null;
         }
 
-        if (control.attackDir != facing) {
+        if (channels.attackDir != facing) {
             meleeing = false;
             yield break;
         }
@@ -92,7 +93,7 @@ public class TutBossAttackMotor : BasicMotor<TutBossProxy> {
 
     private IEnumerator doCharge() {
         charging = true;
-        facing = control.attackDir;
+        facing = channels.attackDir;
 
         yield return new WaitForSeconds(chargeWindup);
 

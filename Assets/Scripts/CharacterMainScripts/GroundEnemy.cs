@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
 public class GroundEnemy : Enemy {
     public CharacterMotor2D motor { get; private set; }
@@ -22,7 +23,7 @@ public class GroundEnemy : Enemy {
     private void Update() {
         if (stunTimer.expired) {
             motor.enableAirControl = true;
-            ctrl.enabled = true;
+            brain.activeControllerIndex = 0;
         }
     }
 
@@ -31,7 +32,7 @@ public class GroundEnemy : Enemy {
 
         Launch((dmg.dir.normalized + Vector3.up) * launchSpeed * f);
         motor.enableAirControl = false;
-        ctrl.enabled = false;
+        brain.activeControllerIndex = -1;
         stunTimer.Set();
     }
 }

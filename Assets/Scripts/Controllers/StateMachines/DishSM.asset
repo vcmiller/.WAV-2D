@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: Attack
     hasEnter: 0
     hasDuring: 1
-    hasExit: 0
+    hasExit: 1
     transitions:
     - to: Move
       hasNotify: 0
@@ -29,3 +29,4 @@ MonoBehaviour:
     - to: Attack
       hasNotify: 0
     position: {x: 480, y: 192}
+  baseClass: GroundEnemySMBase

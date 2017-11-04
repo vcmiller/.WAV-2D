@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class PlayerAnimMotor : BasicMotor<WavCharacterProxy> {
+public class PlayerAnimMotor : BasicMotor<WavCharacterChannels> {
     public Animator anim { get; private set; }
     public SpriteRenderer sprite { get; private set; }
     public CharacterMotor2D motor { get; private set; }
     public PlayerAttackMotor attackMotor { get; private set; }
 
     public override void TakeInput() {
-        if (control.movement.x != 0 && !attackMotor.attacking) {
-            sprite.flipX = control.movement.x < 0;
+        if (channels.movement.x != 0 && !attackMotor.attacking) {
+            sprite.flipX = channels.movement.x < 0;
         }
 
         if (attackMotor.attacking) {
@@ -23,7 +24,7 @@ public class PlayerAnimMotor : BasicMotor<WavCharacterProxy> {
             }
         } else if (!motor.grounded) {
             Play(State.Jump);
-        } else if (control.movement.x == 0) {
+        } else if (channels.movement.x == 0) {
             Play(State.Idle);
         } else {
             Play(State.Run);
@@ -31,7 +32,9 @@ public class PlayerAnimMotor : BasicMotor<WavCharacterProxy> {
     }
 
     // Use this for initialization
-    void Start () {
+    protected override void Start () {
+        base.Start();
+
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         motor = GetComponent<CharacterMotor2D>();

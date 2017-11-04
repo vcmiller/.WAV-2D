@@ -57,8 +57,7 @@ GameObject:
   - component: {fileID: 61174577962295508}
   - component: {fileID: 50707146537560376}
   - component: {fileID: 114699553654258544}
-  - component: {fileID: 114736900748170972}
-  - component: {fileID: 114464776596226774}
+  - component: {fileID: 114008394732769736}
   - component: {fileID: 114643633534636720}
   - component: {fileID: 114140285716792190}
   - component: {fileID: 114971057539248548}
@@ -105,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1924288692442054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.65, y: -45.95, z: 0}
+  m_LocalPosition: {x: -22.9, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4107615703781798}
@@ -207,6 +206,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114008394732769736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1924288692442054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174d5f726f052f34d92d837311541150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channelsType: WavCharacterChannels
+  controllerPrefabs:
+  - {fileID: 11400000, guid: 1fb77ae017a6960499b29c4a815002a5, type: 2}
+  defaultController: 0
 --- !u!114 &114140285716792190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -253,19 +267,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 7
   repeatZeroHealth: 0
---- !u!114 &114464776596226774
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1924288692442054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58183e671b631fe49ab502e170650ba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputSuffix: 
-  HUDPrefab: {fileID: 0}
 --- !u!114 &114534604070485664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,17 +332,6 @@ MonoBehaviour:
   hitSlowDuration: 0.5
   dmgSound: {fileID: 8300000, guid: c0f46f2a67fd9594eac27b01bac6af68, type: 3}
   stepSound: {fileID: 8300000, guid: d0c8c68f0983c2c439ffb823ec4a2313, type: 3}
---- !u!114 &114736900748170972
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1924288692442054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe0b426c172e014884fcd0c5ce70a5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114971057539248548
 MonoBehaviour:
   m_ObjectHideFlags: 1

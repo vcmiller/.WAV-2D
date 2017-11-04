@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SBR;
 
-public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
+public class PlayerAttackMotor : BasicMotor<WavCharacterChannels> {
     public bool attacking {
         get {
             return !attackExpirationTimer.expired;
@@ -27,8 +28,8 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
 
     public GameObject slashPrefab;
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
 
         attackCooldownTimer = new CooldownTimer(1);
         attackExpirationTimer = new ExpirationTimer(1);
@@ -37,8 +38,8 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
     }
 
     public override void TakeInput() {
-        if (control.attack > 0 && control.attack <= weapons.Length && attackCooldownTimer.Use()) {
-            curWeapon = weapons[control.attack - 1];
+        if (channels.attack > 0 && channels.attack <= weapons.Length && attackCooldownTimer.Use()) {
+            curWeapon = weapons[channels.attack - 1];
 
             attackCooldownTimer.cooldown = curWeapon.attackCooldown;
             attackExpirationTimer.expiration = curWeapon.attackDur;
@@ -46,7 +47,7 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
             attackExpirationTimer.Set();
 
 
-            if (control.altAttack)
+            if (channels.altAttack)
             {
                 curWeapon.AltAttack();
                 return;
@@ -56,11 +57,11 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterProxy> {
 
             Vector2 pos, size;
             
-            if (control.movement.y > 0.5f && curWeapon.canAttackUp) {
+            if (channels.movement.y > 0.5f && curWeapon.canAttackUp) {
                 attackDir = Vector2.up;
                 size = new Vector2(b.size.x, curWeapon.range);
                 pos = new Vector2(0, (b.size.y + size.y) / 2);
-            } else if (control.movement.y < -0.5f && !mainMotor.grounded && curWeapon.canAttackDown) {
+            } else if (channels.movement.y < -0.5f && !mainMotor.grounded && curWeapon.canAttackDown) {
                 attackDir = Vector2.down;
                 size = new Vector2(b.size.x, curWeapon.range);
                 pos = new Vector2(0, (b.size.y + size.y) / -2);
