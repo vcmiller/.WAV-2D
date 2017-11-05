@@ -17,6 +17,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   player: {fileID: 0}
-  desiredDist: 0
-  range: 0
-  outRange: 0
+  desiredDist: 5
+  range: 1
+  outRange: 3
