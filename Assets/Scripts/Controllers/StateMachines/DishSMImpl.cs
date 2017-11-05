@@ -14,6 +14,7 @@ public class DishSMImpl : DishSM {
     public override void Initialize(GameObject obj) {
         base.Initialize(obj);
 
+        player = FindObjectOfType<Player>().transform;
         control = channels as EnemyAttackChannels;
     }
 

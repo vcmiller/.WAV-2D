@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour {
     public static SaveManager instance;
@@ -11,9 +12,35 @@ public class SaveManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake() {
-        DontDestroyOnLoad(gameObject);
-        instance = this;
+        if (instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            instance = this;
+        }else
+        {
+            Destroy(gameObject);
+        }
 	}
+
+
+    bool waitingtoputplayer = false;
+    private void Update()
+    {
+        if (waitingtoputplayer)
+        {
+            Player p = FindObjectOfType<Player>();
+            if(p != null)
+            {
+                p.transform.position = System.Array.Find<Checkpoint>(FindObjectsOfType<Checkpoint>(), (c) => c.id == saveData.checkpointID).transform.position;
+                waitingtoputplayer = false;
+            }
+        }else if (Input.GetKeyDown(KeyCode.K))
+        {
+            Destroy(FindObjectOfType<Player>().gameObject);
+            SceneManager.LoadScene(saveData.lastCheckpointScene);
+            waitingtoputplayer = true;
+        }
+    }
 
     public static bool isTrue(string tag)
     {
