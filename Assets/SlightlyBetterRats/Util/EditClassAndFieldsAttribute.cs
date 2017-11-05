@@ -38,7 +38,7 @@ namespace SBR {
                 var so = e.serializedObject;
                 var prop = so.GetIterator();
                 prop.NextVisible(true);
-                while (prop.NextVisible(true)) height += GetPropertyHeight(prop, label);
+                while (prop.NextVisible(prop.isExpanded)) height += GetPropertyHeight(prop, label);
             }
 
             return height;
@@ -51,10 +51,11 @@ namespace SBR {
                 type = type.GetElementType();
             }
 
-            property.objectReferenceValue = Show(position, property, property.objectReferenceValue, label, type);
+            bool b = false;
+            property.objectReferenceValue = Show(position, property, property.objectReferenceValue, label, type, ref b);
         }
 
-        public UnityEngine.Object Show(Rect position, SerializedProperty property, UnityEngine.Object value, GUIContent label, Type type) {
+        public UnityEngine.Object Show(Rect position, SerializedProperty property, UnityEngine.Object value, GUIContent label, Type type, ref bool dirty) {
             bool compatibleType = typeof(ScriptableObject).IsAssignableFrom(type);
 
             if (compatibleType) {
@@ -90,6 +91,9 @@ namespace SBR {
                 selClasses[property] = EditorGUI.Popup(new Rect(position.x + textDimensions.x + 15, position.y, w / 2, 20), curIndex + 1, typeNames) - 1;
 
                 int selClass = selClasses[property];
+                if (selClass != curIndex) {
+                    dirty = true;
+                }
 
                 if (selClass >= 0) {
                     if (curType != null && typesArr[selClass] != curType) {
@@ -116,7 +120,13 @@ namespace SBR {
                         curAssetIndex = -2;
                     }
 
-                    curAssetIndex = EditorGUI.Popup(new Rect(position.x + textDimensions.x + w / 2 + 20, position.y, w / 2 - 20, 20), curAssetIndex + 2, options) - 2;
+                    var newAssetIndex = EditorGUI.Popup(new Rect(position.x + textDimensions.x + w / 2 + 20, position.y, w / 2 - 20, 20), curAssetIndex + 2, options) - 2;
+
+                    if (newAssetIndex != curAssetIndex) {
+                        dirty = true;
+                    }
+
+                    curAssetIndex = newAssetIndex;
 
                     if (curAssetIndex >= 0) {
                         value = AssetDatabase.LoadAssetAtPath(paths[curAssetIndex], typesArr[selClass]);
@@ -160,13 +170,14 @@ namespace SBR {
 
                         var prop = so.GetIterator();
                         prop.NextVisible(true);
-                        while (prop.NextVisible(true)) {
+                        while (prop.NextVisible(prop.isExpanded)) {
                             position.height = 16;
                             EditorGUI.PropertyField(position, prop);
                             position.y += 20;
                         }
                         if (GUI.changed) {
                             so.ApplyModifiedProperties();
+                            dirty = true;
                         }
                     }
                 }

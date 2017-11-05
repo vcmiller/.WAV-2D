@@ -25,7 +25,7 @@ public class WavCharacterController : PlayerController {
     }
 
     public void ButtonUp_Jump() {
-        character.cancelJump = true;
+        character.jump = false;
     }
 
     public void ButtonDown_Fire1() {

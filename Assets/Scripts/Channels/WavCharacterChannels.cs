@@ -4,7 +4,6 @@ using SBR;
 public class WavCharacterChannels : CharacterChannels {
     public WavCharacterChannels() {
         RegisterInputChannel("attack", 0, true);
-        RegisterInputChannel("cancelJump", false, true);
         RegisterInputChannel("altAttack", false, false);
 
     }
@@ -17,16 +16,6 @@ public class WavCharacterChannels : CharacterChannels {
 
         set {
             SetInt("attack", value);
-        }
-    }
-
-    public bool cancelJump {
-        get {
-            return GetInput<bool>("cancelJump");
-        }
-
-        set {
-            SetInput("cancelJump", value);
         }
     }
 

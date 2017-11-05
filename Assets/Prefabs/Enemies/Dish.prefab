@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   channelsType: EnemyAttackChannels
   controllerPrefabs:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9ca63242c84dcad4d9e331bc179605c9, type: 2}
   defaultController: 0
 --- !u!114 &114802906483201294
 MonoBehaviour:
@@ -196,6 +196,7 @@ MonoBehaviour:
   maxSlope: 45
   maxStep: 0.2
   jumpSpeed: 15
+  enableJumpCancel: 1
   gravityScale: 4
   airControl: 1
 --- !u!114 &114827843118608686

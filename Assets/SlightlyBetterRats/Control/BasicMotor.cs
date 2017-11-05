@@ -8,7 +8,7 @@ namespace SBR {
 
         protected override void Start() {
             base.Start();
-            Brain b = GetComponent<Brain>();
+            Brain b = GetComponentInParent<Brain>();
             if (b) {
                 channels = b.channels as T;
             }

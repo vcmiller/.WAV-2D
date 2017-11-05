@@ -13,7 +13,8 @@ namespace SBR {
         public BoxCollider2D box { get; private set; }
 
         public bool grounded { get; private set; }
-        public bool jumped { get; private set; }
+        public bool jumpedThisFrame { get; private set; }
+        public bool jumping { get; private set; }
         public bool enableAirControl { get; set; }
 
         [HideInInspector]
@@ -42,6 +43,9 @@ namespace SBR {
         [Header("Jumping")]
         [Tooltip("The speed at which the character jumps.")]
         public float jumpSpeed = 4;
+
+        [Tooltip("Whether releasing the jump button should immediately cancel the jump.")]
+        public bool enableJumpCancel = true;
 
         [Tooltip("The value to multiply Physics.Gravity by.")]
         public float gravityScale = 1;
@@ -72,10 +76,21 @@ namespace SBR {
             }
             velocity = Vector2.MoveTowards(velocity, new Vector2(move.x, velocity.y), accel * Time.deltaTime);
 
-            jumped = false;
+            jumpedThisFrame = false;
             if (grounded && channels.jump) {
-                jumped = true;
+                jumpedThisFrame = true;
+                jumping = true;
                 velocity.y = jumpSpeed;
+            }
+
+            if (velocity.y <= 0) {
+                jumping = false;
+                channels.jump = false;
+            }
+
+            if (jumping && !channels.jump && enableJumpCancel) {
+                jumping = false;
+                velocity.y = 0;
             }
         }
 
@@ -173,12 +188,6 @@ namespace SBR {
                 Vector2 comp = Vector3.Project(-badMovement, norm);
 
                 vert += comp;
-
-                //comp.x = 0;
-
-                if (velocity.y + comp.y > 0) {
-                    comp.y = Mathf.Max(-velocity.y, 0);
-                }
 
                 velocity += comp / Time.deltaTime;
             }

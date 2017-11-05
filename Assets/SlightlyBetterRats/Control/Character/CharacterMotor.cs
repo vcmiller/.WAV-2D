@@ -13,7 +13,8 @@ namespace SBR {
         public CapsuleCollider capsule { get; private set; }
 
         public bool grounded { get; private set; }
-        public bool jumped { get; private set; }
+        public bool jumpedThisFrame { get; private set; }
+        public bool jumping { get; private set; }
         public bool enableAirControl { get; set; }
 
         [HideInInspector]
@@ -77,8 +78,16 @@ namespace SBR {
 
             velocity = Vector3.MoveTowards(velocity, new Vector3(move.x, velocity.y, move.z), accel * Time.deltaTime);
 
+            jumpedThisFrame = false;
             if (grounded && channels.jump) {
+                jumpedThisFrame = true;
+                jumping = true;
                 velocity.y = jumpSpeed;
+            }
+
+            if (velocity.y <= 0) {
+                jumping = false;
+                channels.jump = false;
             }
         }
 
@@ -172,12 +181,6 @@ namespace SBR {
                 Vector3 comp = Vector3.Project(-badMovement, norm);
 
                 vert += comp;
-
-                //comp.x = comp.z = 0;
-
-                if (velocity.y + comp.y > 0) {
-                    comp.y = Mathf.Max(-velocity.y, 0);
-                }
 
                 velocity += comp / Time.deltaTime;
             }

@@ -8,9 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 827f92b1f4357d6459775a455280c186, type: 3}
   m_Name: DishSMImpl
-  m_EditorClassIdentifier: Assembly-CSharp::DishSMImpl
+  m_EditorClassIdentifier: 
   wallDist: 1
   floorDist: 1.1
   groundLayers:

@@ -24,9 +24,7 @@ namespace SBR {
 
             serializedObject.Update();
             DrawPropertiesExcluding(serializedObject, "controllerPrefabs", "script");
-            serializedObject.ApplyModifiedProperties();
-
-
+            
             EditorGUILayout.LabelField("Controllers", EditorStyles.boldLabel);
             if (brain.controllerPrefabs == null) {
                 brain.controllerPrefabs = new List<Controller>();
@@ -43,6 +41,7 @@ namespace SBR {
             EditorGUILayout.EndHorizontal();
             float w = GUILayoutUtility.GetLastRect().width;
             Vector2 buttonSize = new Vector2(24, 24);
+            bool dirty = false;
 
             for (int i = 0; i < brain.controllerPrefabs.Count; i++) {
                 prop.Next(true);
@@ -65,16 +64,19 @@ namespace SBR {
                     var swap = brain.controllerPrefabs[i - 1];
                     brain.controllerPrefabs[i - 1] = brain.controllerPrefabs[i];
                     brain.controllerPrefabs[i] = swap;
+                    dirty = true;
                 }
 
                 if (i < brain.controllerPrefabs.Count - 1 && GUI.Button(new Rect(rect.x + 6, rect.y + 8 + buttonSize.y, buttonSize.x, buttonSize.y), new GUIContent(arrowDown))) {
                     var swap = brain.controllerPrefabs[i + 1];
                     brain.controllerPrefabs[i + 1] = brain.controllerPrefabs[i];
                     brain.controllerPrefabs[i] = swap;
+                    dirty = true;
                 }
 
                 if (GUI.Button(new Rect(rect.x + rect.width - 6 - buttonSize.x, rect.y + 6, buttonSize.x, buttonSize.y), new GUIContent(delete))) {
                     brain.controllerPrefabs.RemoveAt(i);
+                    dirty = true;
                     continue;
                 }
 
@@ -83,7 +85,7 @@ namespace SBR {
                 rect.x += buttonSize.x;
                 rect.width -= buttonSize.y + 20;
 
-                brain.controllerPrefabs[i] = drawer.Show(rect, prop, brain.controllerPrefabs[i], new GUIContent(), typeof(Controller)) as Controller;
+                brain.controllerPrefabs[i] = drawer.Show(rect, prop, brain.controllerPrefabs[i], new GUIContent(), typeof(Controller), ref dirty) as Controller;
             }
 
             GUILayout.Space(buttonSize.y + 12);
@@ -95,6 +97,13 @@ namespace SBR {
 
             if (GUI.Button(new Rect(rect2.x + 6, rect2.y + 6, buttonSize.x, buttonSize.y), new GUIContent(create))) {
                 brain.controllerPrefabs.Add(null);
+                dirty = true;
+            }
+
+            serializedObject.ApplyModifiedProperties();
+
+            if (dirty) {
+                EditorUtility.SetDirty(brain);
             }
 
             EditorGUILayout.LabelField("Detected Motors", EditorStyles.boldLabel);

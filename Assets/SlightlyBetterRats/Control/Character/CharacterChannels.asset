@@ -49,7 +49,7 @@ MonoBehaviour:
     objectType: 
   - name: jump
     type: 2
-    clears: 1
+    clears: 0
     floatHasRange: 0
     floatMin: 0
     floatMax: 0

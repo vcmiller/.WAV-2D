@@ -55,12 +55,12 @@ namespace SBR {
 
         public void SendMessage(string functionName, object argument = null) {
             if (argument != null) {
-                var func = GetType().GetMethod(functionName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public, null, new System.Type[] { argument.GetType() }, null);
+                var func = GetType().GetMethod(functionName, BindingFlags.NonPublic | BindingFlags.Instance, null, new System.Type[] { argument.GetType() }, null);
                 if (func != null) {
                     func.Invoke(this, new object[] { argument });
                 }
             } else {
-                var func = GetType().GetMethod(functionName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+                var func = GetType().GetMethod(functionName, BindingFlags.NonPublic | BindingFlags.Instance);
                 if (func != null) {
                     func.Invoke(this, null);
                 }

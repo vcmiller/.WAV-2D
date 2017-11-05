@@ -33,6 +33,10 @@ namespace SBR {
             character.jump = true;
         }
 
+        public void BUttonUp_Jump() {
+            character.jump = false;
+        }
+
         public void Axis_MouseX(float value) {
             character.rotation = Quaternion.Euler(0, value, 0) * character.rotation;
         }

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   channelsType: CharacterChannels
   controllerPrefabs:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b0d6b1aa6ea7098449056d6238ab633b, type: 2}
   defaultController: 0
 --- !u!114 &114607184531754594
 MonoBehaviour:
@@ -137,6 +137,7 @@ MonoBehaviour:
   maxSlope: 45
   maxStep: 0.2
   jumpSpeed: 15
+  enableJumpCancel: 1
   gravityScale: 4
   airControl: 1
 --- !u!114 &114912440082465668

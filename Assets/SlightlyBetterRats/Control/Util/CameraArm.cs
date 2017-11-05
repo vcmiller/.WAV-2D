@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace SBR {
-    public class CameraArm : BasicMotor<Channels> {
+    public class CameraArm : BasicMotor<CharacterChannels> {
         public bool useControlRotation = true;
-        public string rotationChannel = "rotation";
         private Quaternion rot;
 
         private void LateUpdate() {
@@ -16,7 +15,7 @@ namespace SBR {
         }
 
         public override void TakeInput() {
-            rot = channels.GetQuaternion(rotationChannel);
+            rot = channels.rotation;
         }
     }
 }
