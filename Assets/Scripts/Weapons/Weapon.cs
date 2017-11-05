@@ -40,6 +40,7 @@ public class Sawtooth : Weapon {
         if (tb = FindObjectOfType<TriangleBlade>())
         {
             Slash(tb.transform.position, (p.transform.position - tb.transform.position), onlyEnemies);
+            tb.CreateTrail(tb.transform.position, p.transform.position);
             Destroy(tb.gameObject);
             return;
         }
@@ -49,6 +50,7 @@ public class Sawtooth : Weapon {
         {
             TriangleBlade blade = Instantiate(platformPrefab, hit.point, Quaternion.identity);
             blade.Embed(hit.point, p.facing.x < 0);
+            blade.CreateTrail(p.transform.position, hit.point);
         }
 
         Slash(p.transform.position, p.facing, onlyEnemies);

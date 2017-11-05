@@ -363,6 +363,10 @@ MonoBehaviour:
   m_XDamping: 1
   m_YDamping: 3
   m_ZDamping: 1
+  useLimits: 0
+  limits:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   m_BindingMode: 3
 --- !u!114 &368321761
 MonoBehaviour:
@@ -590,6 +594,10 @@ MonoBehaviour:
   m_XDamping: 1
   m_YDamping: 100000
   m_ZDamping: 1
+  useLimits: 0
+  limits:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   m_BindingMode: 3
 --- !u!1 &1198285190
 GameObject:

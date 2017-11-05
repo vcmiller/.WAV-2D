@@ -8,6 +8,9 @@ public class TriangleBlade : MonoBehaviour {
     bool begun = false;
     SpriteRenderer sr;
     Rigidbody2D rb;
+
+    public Trail trail;
+
 	// Use this for initialization
 	void Start () {
         if (begun) return;
@@ -17,6 +20,7 @@ public class TriangleBlade : MonoBehaviour {
 	}
 
 
+
     public void Embed(Vector2 position, bool flipX)
     {
         Start();
@@ -24,4 +28,11 @@ public class TriangleBlade : MonoBehaviour {
         sr.flipX = flipX;
     }
 
+    public void CreateTrail(Vector2 from, Vector2 to)
+    {
+        Trail t = Instantiate(trail, to, Quaternion.identity);
+        t.SetTrail(from, 0.05f);
+        t.lr.startColor = Color.red;
+        t.lr.endColor = Color.clear;
+    }
 }
