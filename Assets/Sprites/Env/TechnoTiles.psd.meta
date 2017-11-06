@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7c2bb03899709bf4d8aba43465a9a13a
-timeCreated: 1509846169
+timeCreated: 1509924468
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -617,7 +617,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -64, y: 64}
+        - {x: -64, y: -64}
+        - {x: 64, y: -64}
+        - {x: 64, y: 62.831177}
       tessellationDetail: 0
     - serializedVersion: 2
       name: TechnoTiles_28
@@ -741,7 +745,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -64, y: 64}
+        - {x: -64, y: -64}
+        - {x: 64, y: -64}
+        - {x: 64, y: 64}
       tessellationDetail: 0
     - serializedVersion: 2
       name: TechnoTiles_36
@@ -865,7 +873,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -64, y: 64}
+        - {x: -64, y: -64}
+        - {x: 64, y: -64}
+        - {x: 64, y: 64}
       tessellationDetail: 0
     - serializedVersion: 2
       name: TechnoTiles_44
@@ -989,7 +1001,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -64, y: 64}
+        - {x: -64, y: -64}
+        - {x: 64, y: -64}
+        - {x: 64, y: 64}
       tessellationDetail: 0
     - serializedVersion: 2
       name: TechnoTiles_52

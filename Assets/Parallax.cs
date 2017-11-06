@@ -10,8 +10,10 @@ public class Parallax : MonoBehaviour {
     public float parallaxFactor;
     
     private void OnRenderObject() {
-        Vector3 v = Camera.current.transform.position * parallaxFactor;
-        v.z = 0;
-        transform.position = v;
+        if (Application.isPlaying || Camera.current.name == "SceneCamera") {
+            Vector3 v = Camera.current.transform.position * parallaxFactor;
+            v.z = 0;
+            transform.position = v;
+        }
     }
 }
