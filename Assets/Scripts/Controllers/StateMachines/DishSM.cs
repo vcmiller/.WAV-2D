@@ -32,6 +32,7 @@ public abstract class DishSM : GroundEnemySMBase {
 
         State stateAttack = new State();
         stateAttack.id = StateID.Attack;
+        stateAttack.enter = StateEnter_Attack;
         stateAttack.during = State_Attack;
         stateAttack.exit = StateExit_Attack;
         stateAttack.transitions = new Transition[1];
@@ -55,6 +56,7 @@ public abstract class DishSM : GroundEnemySMBase {
         transitionMoveAttack.from = stateMove;
         transitionMoveAttack.to = stateAttack;
         transitionMoveAttack.cond = TransitionCond_Move_Attack;
+        transitionMoveAttack.notify = TransitionNotify_Move_Attack;
         stateMove.transitions[0] = transitionMoveAttack;
 
 
@@ -127,11 +129,13 @@ public abstract class DishSM : GroundEnemySMBase {
         CallIfSet(target.enter);
     }
 
+    protected virtual void StateEnter_Attack() { }
     protected virtual void State_Attack() { }
     protected virtual void StateExit_Attack() { }
     protected virtual void State_Move() { }
 
     protected virtual bool TransitionCond_Attack_Move() { return false; }
     protected virtual bool TransitionCond_Move_Attack() { return false; }
+    protected virtual void TransitionNotify_Move_Attack() { }
 
 }

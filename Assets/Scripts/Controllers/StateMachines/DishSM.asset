@@ -14,7 +14,7 @@ MonoBehaviour:
   defaultState: Move
   states:
   - name: Attack
-    hasEnter: 0
+    hasEnter: 1
     hasDuring: 1
     hasExit: 1
     transitions:
@@ -27,6 +27,6 @@ MonoBehaviour:
     hasExit: 0
     transitions:
     - to: Attack
-      hasNotify: 0
+      hasNotify: 1
     position: {x: 480, y: 192}
   baseClass: GroundEnemySMBase

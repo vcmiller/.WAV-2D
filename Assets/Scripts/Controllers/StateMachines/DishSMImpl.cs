@@ -9,6 +9,8 @@ public class DishSMImpl : DishSM {
     public float range;
     public float outRange;
 
+    private bool needsToAttack;
+
     private EnemyAttackChannels control;
 
     public override void Initialize(GameObject obj) {
@@ -16,14 +18,19 @@ public class DishSMImpl : DishSM {
 
         player = FindObjectOfType<Player>().transform;
         control = channels as EnemyAttackChannels;
+        maxTransitionsPerUpdate = 1;
     }
 
-    public void StateEnter_Attack() {
+    protected override void StateEnter_Attack() {
         sprite.flipX = player.position.x < transform.position.x;
     }
 
 	protected override void State_Attack() {
         control.attack = distFromRange < outRange;
+
+        if (control.attackInProgress) {
+            needsToAttack = false;
+        }
     }
 
     protected override void StateExit_Attack() {
@@ -41,11 +48,15 @@ public class DishSMImpl : DishSM {
     }
 
     protected override bool TransitionCond_Attack_Move() {
-        return (distFromRange > outRange || sprite.flipX != player.position.x < transform.position.x) && control.attackInProgress == false; ;
+        return (distFromRange > outRange || sprite.flipX != player.position.x < transform.position.x) && !control.attackInProgress && !needsToAttack;
     }
 
     protected override bool TransitionCond_Move_Attack() {
-        return distFromRange < range;
+        return distFromRange < range || pitCheck || wallCheck;
+    }
+
+    protected override void TransitionNotify_Move_Attack() {
+        needsToAttack = true;
     }
 
     private float distFromRange {

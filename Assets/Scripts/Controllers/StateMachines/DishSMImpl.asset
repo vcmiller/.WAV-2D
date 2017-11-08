@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827f92b1f4357d6459775a455280c186, type: 3}
   m_Name: DishSMImpl
   m_EditorClassIdentifier: 
-  wallDist: 1
+  wallDist: 2
   floorDist: 1.1
   groundLayers:
     serializedVersion: 2
