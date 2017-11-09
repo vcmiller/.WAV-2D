@@ -46,8 +46,8 @@ public class PlayerAttackMotor : BasicMotor<WavCharacterChannels> {
 
             attackExpirationTimer.Set();
 
-
-            if (channels.altAttack)
+            if (channels.altAttack
+                || (curWeapon is Sawtooth && FindObjectOfType<TriangleBlade>()))
             {
                 curWeapon.AltAttack();
                 return;
